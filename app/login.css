@@ -1,0 +1,49 @@
+.login {
+  background-image: url("../public/img/background.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-box {
+  /* border: 2px solid white; */
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #127501 22.13%, #22db02 97.12%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+.input_style {
+  width: 300px;
+  padding: 10px;
+  border-radius: 5px;
+  transition: border-color 0.3s ease; /* Smooth transition */
+}
+.input_style:focus {
+  border-color: #22db02; /* Change border color to green when focused */
+}
+.login_button {
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 7px;
+  background: linear-gradient(
+    90deg,
+    rgba(18, 117, 1, 0.98) 0%,
+    rgba(32, 205, 2, 0.98) 100%
+  );
+  color: white;
+  font-weight: 800;
+  border: none;
+  width: 300px;
+}
