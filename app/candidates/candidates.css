@@ -71,3 +71,27 @@
   border: none;
   width: 300px;
 }
+.next_button {
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 7px;
+  background: linear-gradient(
+    90deg,
+    rgba(18, 117, 1, 0.98) 0%,
+    rgba(32, 205, 2, 0.98) 100%
+  );
+  color: white;
+  font-weight: 800;
+  border: none;
+  width: 300px;
+}
+.previous_button {
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 7px;
+  background: white;
+  color: black;
+  font-weight: 800;
+  border: none;
+  width: 300px;
+}

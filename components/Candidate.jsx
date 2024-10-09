@@ -1,7 +1,7 @@
 import { Avatar, Box, Stack, Typography } from "@mui/material";
 import React from "react";
 
-const Candidate = () => {
+const Candidate = ({ name }) => {
   return (
     <Stack
       direction="row"
@@ -30,7 +30,7 @@ const Candidate = () => {
         }}
       >
         <Typography sx={{ width: "100%", fontWeight: "700", color: "white" }}>
-          (Candidate Name)
+          {name}
         </Typography>
       </Box>
     </Stack>

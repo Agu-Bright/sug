@@ -14,7 +14,7 @@ const GeneralContextProvider = ({ children }) => {
   const [authLoading, setAuthLoading] = useState(false);
   const [pollId, setPollId] = useState("");
   const [candidates, setCandidates] = useState([]);
-  const [loadindCandidates, setLoadingCandidates] = useState([]);
+  const [loadindCandidates, setLoadingCandidates] = useState(false);
 
   useEffect(() => {
     setAuthLoading(true);
@@ -52,7 +52,6 @@ const GeneralContextProvider = ({ children }) => {
             },
           });
           handleFetchCandidates(data?.payload);
-          setLoadingCandidates(false);
         } catch (error) {
           console.log(error);
           setLoadingCandidates(false);
@@ -81,6 +80,7 @@ const GeneralContextProvider = ({ children }) => {
       );
       console.log("All Candidates", candidates);
       setCandidates(candidates);
+      setLoadingCandidates(false);
     } catch (error) {
       console.log("Error fetching candidates:", error);
     }
