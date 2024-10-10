@@ -12,19 +12,20 @@ import {
 } from "@mui/material";
 import Candidate from "@/components/Candidate";
 import { GeneralContext } from "@/context/GeneralContext";
-import axios from "axios";
+import BasicModal from "@/components/Modal";
 
 const page = () => {
   const { token, URL, candidates, loadindCandidates } =
     useContext(GeneralContext);
-  const candidateLength = candidates.length;
+  const candidateLength = candidates?.length;
   const [currentPosition, setCurrentPosition] = useState();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [open, setOpen] = useState(false);
 
   currentPosition && console.log("currentPosition", currentPosition);
 
   useEffect(() => {
-    if (candidates.length > 0) {
+    if (candidates?.length > 0) {
       setCurrentPosition(candidates[currentIndex]);
     }
   }, [currentIndex, candidates]);
@@ -42,6 +43,22 @@ const page = () => {
         return prev + 1;
       }
     });
+  };
+
+  const handleModal = () => {
+    setOpen(true);
+  };
+  const [isSending, setIsSending] = useState(false);
+  const handleSubmit = async () => {
+    try {
+      setIsSending(true);
+      const { data } = await axios.post(`${URL}/`);
+      console.log(data);
+      setIsSending(false);
+    } catch (error) {
+      console.log(error);
+      setIsSending(false);
+    }
   };
 
   if (token)
@@ -88,7 +105,11 @@ const page = () => {
                 {currentPosition?.candidates &&
                   currentPosition?.candidates.map((candidate, index) => (
                     <Grid item xs={2} sm={4} md={4} key={index}>
-                      <Candidate name={candidate.name} />
+                      <Candidate
+                        name={candidate.name}
+                        candidateId = {candidate.id}
+                        positionId={currentPosition.position_id}
+                      />
                     </Grid>
                   ))}
               </Grid>
@@ -116,14 +137,35 @@ const page = () => {
                   >
                     Previous
                   </button>
-                  <button className="next_button" onClick={() => handleNext}>
+                  {currentIndex === candidateLength - 1 ? (
+                    <button
+                      className="next_button"
+                      onClick={() => handleModal()}
+                    >
+                      Submit
+                    </button>
+                  ) : (
+                    <button
+                      className="next_button"
+                      onClick={() => handleNext()}
+                    >
+                      Next
+                    </button>
+                  )}
+                  {/* <button className="next_button" onClick={() => handleNext()}>
                     Next
-                  </button>
+                  </button> */}
                 </Stack>
               )}
             </Box>
           </Stack>
         )}
+        <BasicModal
+          open={open}
+          setOpen={setOpen}
+          isSending={isSending}
+          handleSubmit={handleSubmit}
+        />
       </div>
     );
 };

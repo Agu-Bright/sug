@@ -1,18 +1,58 @@
+"use client";
+import { GeneralContext } from "@/context/GeneralContext";
 import { Avatar, Box, Stack, Typography } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
+import { toast } from "react-toastify";
+import { Bounce } from "react-toastify"; // Import the Bounce transition if it's provided by your toast library
+import "react-toastify/dist/ReactToastify.css";
 
-const Candidate = ({ name }) => {
+const Candidate = ({ name, positionId, candidateId }) => {
+  const { selectedCandidate, setSelectedCandidate, candidates, setCandidates } =
+    useContext(GeneralContext);
+
+  const handleCastVote = (_name) => {
+    setSelectedCandidate(_name);
+    setCandidates((prev) => {
+      return prev.map((item) => {
+        if (item.position_id === positionId) {
+          return {
+            ...item,
+            selectedCandidate: candidateId,
+          };
+        }
+        return item;
+      });
+    });
+    console.log("updatedCandidates", candidates);
+    toast.success("Voted", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
+  };
+
   return (
     <Stack
+      onClick={() => handleCastVote(name)}
       direction="row"
       sx={{
-        // background: "white",
-        border: "2px solid white",
-        background:
-          "linear-gradient( 90deg, rgba(18, 117, 1, 0.98) 0%, rgba(32, 205, 2, 0.98) 100%)",
+        border: `${selectedCandidate === name ? "2px solid white" : ""}`,
+        background: `${
+          selectedCandidate === name
+            ? "linear-gradient( 90deg, rgba(18, 117, 1, 0.98) 0%, rgba(32, 205, 2, 0.98) 100%)"
+            : "white"
+        }`,
+
         width: "100%",
         borderRadius: "5px",
         padding: "8px",
+        cursor: "pointer",
       }}
     >
       <Box sx={{ width: "20%", height: "auto" }}>
@@ -29,7 +69,13 @@ const Candidate = ({ name }) => {
           padding: "5px",
         }}
       >
-        <Typography sx={{ width: "100%", fontWeight: "700", color: "white" }}>
+        <Typography
+          sx={{
+            width: "100%",
+            fontWeight: "700",
+            color: `${selectedCandidate === name ? "white" : "black"}`,
+          }}
+        >
           {name}
         </Typography>
       </Box>

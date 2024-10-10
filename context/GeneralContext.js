@@ -15,6 +15,7 @@ const GeneralContextProvider = ({ children }) => {
   const [pollId, setPollId] = useState("");
   const [candidates, setCandidates] = useState([]);
   const [loadindCandidates, setLoadingCandidates] = useState(false);
+  const [selectedCandidate, setSelectedCandidate] = useState("");
 
   useEffect(() => {
     setAuthLoading(true);
@@ -74,7 +75,9 @@ const GeneralContextProvider = ({ children }) => {
           );
           return {
             position: position.name,
+            position_id: position.id,
             candidates: data?.payload,
+            selectedCandidate: "",
           };
         })
       );
@@ -105,6 +108,8 @@ const GeneralContextProvider = ({ children }) => {
         setCandidates,
         loadindCandidates,
         setLoadingCandidates,
+        selectedCandidate,
+        setSelectedCandidate,
       }}
     >
       {children}

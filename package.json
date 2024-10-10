@@ -19,7 +19,8 @@
     "react-confetti-explosion": "^2.1.2",
     "react-dom": "^18",
     "react-toastify": "^10.0.5",
-    "swiper": "^11.1.14"
+    "swiper": "^11.1.14",
+    "tailwindcss-animated": "^1.1.2"
   },
   "devDependencies": {
     "postcss": "^8",
