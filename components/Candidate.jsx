@@ -3,10 +3,10 @@ import { GeneralContext } from "@/context/GeneralContext";
 import { Avatar, Box, Stack, Typography } from "@mui/material";
 import React, { useContext } from "react";
 import { toast } from "react-toastify";
-import { Bounce } from "react-toastify"; // Import the Bounce transition if it's provided by your toast library
+import { Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Candidate = ({ name, positionId, candidateId }) => {
+const Candidate = ({ name, positionId, candidateId, _selectedCandidate }) => {
   const { selectedCandidate, setSelectedCandidate, candidates, setCandidates } =
     useContext(GeneralContext);
 
@@ -42,9 +42,11 @@ const Candidate = ({ name, positionId, candidateId }) => {
       onClick={() => handleCastVote(name)}
       direction="row"
       sx={{
-        border: `${selectedCandidate === name ? "2px solid white" : ""}`,
+        border: `${
+          _selectedCandidate === candidateId ? "2px solid white" : ""
+        }`,
         background: `${
-          selectedCandidate === name
+          _selectedCandidate === candidateId
             ? "linear-gradient( 90deg, rgba(18, 117, 1, 0.98) 0%, rgba(32, 205, 2, 0.98) 100%)"
             : "white"
         }`,
@@ -73,7 +75,7 @@ const Candidate = ({ name, positionId, candidateId }) => {
           sx={{
             width: "100%",
             fontWeight: "700",
-            color: `${selectedCandidate === name ? "white" : "black"}`,
+            color: `${_selectedCandidate === candidateId ? "white" : "black"}`,
           }}
         >
           {name}

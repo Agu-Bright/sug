@@ -107,8 +107,9 @@ const page = () => {
                     <Grid item xs={2} sm={4} md={4} key={index}>
                       <Candidate
                         name={candidate.name}
-                        candidateId = {candidate.id}
+                        candidateId={candidate.id}
                         positionId={currentPosition.position_id}
+                        _selectedCandidate={currentPosition?.selectedCandidate}
                       />
                     </Grid>
                   ))}

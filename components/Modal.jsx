@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -5,6 +6,12 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { CircularProgress, Alert, IconButton, Stack } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
+import { GeneralContext } from "@/context/GeneralContext";
+import { toast } from "react-toastify";
+import { Bounce } from "react-toastify"; // Import the Bounce transition if it's provided by your toast library
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const style = {
   position: "absolute",
@@ -18,9 +25,53 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal({ open, setOpen, isSending, handleSubmit }) {
+export default function BasicModal({ open, setOpen }) {
   //   const handleOpen = () => setOpen(true);
+  const router = useRouter();
   const handleClose = () => setOpen(false);
+  const { candidates, URL, token } = React.useContext(GeneralContext);
+  const [isSending, setIsSending] = React.useState(false);
+
+  const handleSubmit = async () => {
+    const _votes = candidates.map((item) => {
+      return {
+        position_id: item.position_id,
+        candidate_id: item.selectedCandidate,
+      };
+    });
+    try {
+      setIsSending(true);
+      await axios.post(
+        `${URL}/vote`,
+        {
+          votes: _votes,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      //success message
+      //logout
+      setIsSending(false);
+      localStorage.removeItem("authToken");
+      router.push("/success");
+    } catch (error) {
+      setIsSending(false);
+      toast.error(error?.response?.data?.message, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
+  };
 
   return (
     <div>
@@ -60,7 +111,7 @@ export default function BasicModal({ open, setOpen, isSending, handleSubmit }) {
             }}
           >
             <button
-              //   onClick={() => !isSending && handleSubmit()}
+              onClick={() => handleSubmit()}
               style={{
                 color: "white",
                 background: "#4D8E2D",
