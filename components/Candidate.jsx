@@ -7,7 +7,7 @@ import { Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Candidate = ({ name, positionId, candidateId, _selectedCandidate }) => {
-  const { selectedCandidate, setSelectedCandidate, candidates, setCandidates } =
+  const { setSelectedCandidate, candidates, setCandidates } =
     useContext(GeneralContext);
 
   const handleCastVote = (_name) => {
@@ -59,8 +59,8 @@ const Candidate = ({ name, positionId, candidateId, _selectedCandidate }) => {
     >
       <Box sx={{ width: "20%", height: "auto" }}>
         <Avatar
-          src="/img/avatar.jpeg"
-          sx={{ width: "100%", height: "auto", borderRadius: "5px" }}
+          // src="/img/avatar.jpeg"
+          sx={{ width: "auto", height: "100%", borderRadius: "5px" }}
         />
       </Box>
       <Box

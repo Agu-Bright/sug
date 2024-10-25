@@ -1,20 +1,38 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
 import ConfettiExplosion from "react-confetti-explosion";
 import "./success.css";
 import { Box } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { GeneralContext } from "@/context/GeneralContext";
 
 const page = () => {
   //   const navigate = useNavigate();
   const [displayConfetti, setDisplayConfetti] = useState(true);
   const router = useRouter();
+  const { candidates } = useContext(GeneralContext);
+  const [totalVoted, setTotalVoted] = useState("__");
 
   //   const handleBacktoLogin = () => {
   //     auth.logout();
   //     navigate("/login");
   //   };
+  useEffect(() => {
+    setTimeout(() => {
+      router.push("/");
+    }, 3000);
+  }, []);
+
+  useEffect(() => {
+    const votedCandidates = candidates.array.forEach((candidate) => {
+      if (candidate.selectedCandidate) {
+        return candidate;
+      }
+    });
+    setTotalVoted(votedCandidates.length);
+  }, []);
+
   return (
     <div className="success_container">
       <div className="flex sm:pb-0 pb-10 sm:top-0 top-20 relative  flex-col items-center max-h-fit gap-y-3 ">
@@ -57,10 +75,7 @@ const page = () => {
           </span>
         </div>
         <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
-          <button
-            className="next_button"
-            onClick={() => router.push("/candidates")}
-          >
+          <button className="next_button" onClick={() => router.push("/")}>
             Back to Login
           </button>
         </Box>

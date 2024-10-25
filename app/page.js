@@ -114,28 +114,45 @@ export default function Home() {
                 />
               </Box>
 
-              <Box sx={{ height: "20%" }}>
-                <Typography
-                  variant="h4"
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Box
                   sx={{
-                    textAlign: "center",
-                    fontWeight: "700",
-                    fontSize: "30px",
-                  }}
-                  className="gradient-text"
-                >
-                  STUDENT UNION GOVERNMENT
-                </Typography>
-                <Typography
-                  variant="h6"
-                  sx={{
-                    textAlign: "center",
-                    fontSize: "15px",
-                    fontWeight: "700",
+                    height: "20%",
+                    width: "300px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexDirection: "column",
                   }}
                 >
-                  ELECTION 2024
-                </Typography>
+                  <Typography
+                    variant="h4"
+                    sx={{
+                      textAlign: "center",
+                      fontWeight: "700",
+                      fontSize: "30px",
+                    }}
+                    className="gradient-text"
+                  >
+                    STUDENT UNION GOVERNMENT
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      textAlign: "center",
+                      fontSize: "15px",
+                      fontWeight: "700",
+                    }}
+                  >
+                    ELECTION 2024
+                  </Typography>
+                </Box>
               </Box>
               <Stack
                 sx={{ height: "50%" }}
@@ -143,7 +160,12 @@ export default function Home() {
                 alignItems="center"
                 justifyContent="center"
               >
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
                   <label>Username</label>
                   <input
                     type="text"
@@ -153,8 +175,14 @@ export default function Home() {
                     onChange={(e) => setUserName(e.target.value)}
                   />
                 </Box>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <label>password</label>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    marginTop: "10px",
+                  }}
+                >
+                  <label>Password</label>
                   <input
                     type="password"
                     placeholder="Password"
