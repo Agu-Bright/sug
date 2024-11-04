@@ -25,7 +25,7 @@ const page = () => {
   }, []);
 
   useEffect(() => {
-    const votedCandidates = candidates.array.forEach((candidate) => {
+    const votedCandidates = candidates?.forEach((candidate) => {
       if (candidate.selectedCandidate) {
         return candidate;
       }
@@ -68,7 +68,7 @@ const page = () => {
         </div>
         <div className="flex gap-y-1 flex-col items-center">
           <p className="text-defaultPrimary leading-none text-4xl font-bold">
-            5
+            {totalVoted}
           </p>
           <span className="text-xs font-medium text-defaultPrimary">
             Candidates voted
